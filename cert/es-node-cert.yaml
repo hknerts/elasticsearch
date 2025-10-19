@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: es-node-cert
+  namespace: elasticsearch
+spec:
+  secretName: es-certificates
+  duration: 8760h
+  renewBefore: 720h
+  commonName: elasticsearch-master
+  dnsNames:
+    - elasticsearch-master
+    - elasticsearch-master.elastic.svc.cluster.local
+  issuerRef:
+    name: elastic-ca
+    kind: ClusterIssuer
