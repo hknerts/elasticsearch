@@ -7,6 +7,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    container:
+      image: bitnami/kubectl:latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -17,3 +19,4 @@ jobs:
           
       - name: Test kubectl
         run: kubectl get nodes
+
