@@ -12,7 +12,8 @@ createCert: false
 protocol: https
 roles:
   - ingest
-
+nodeSelector:
+  node-role.kubernetes.io/ingest: ""
 secretMounts:
   - name: elastic-certificates
     secretName: es-certificates

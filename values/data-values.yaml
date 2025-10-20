@@ -17,6 +17,9 @@ roles:
   - data_warm
   - data_cold
   - data_frozen
+  
+nodeSelector:
+  node-role.kubernetes.io/data: ""
 secretMounts:
   - name: elastic-certificates
     secretName: es-certificates
