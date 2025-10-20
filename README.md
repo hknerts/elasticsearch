@@ -1,49 +1,68 @@
-# Elasticsearch on Kubernetes — Production Helm Deployment
+# 🧩 Elasticsearch on Kubernetes — Production Helm Deployment
 
-This repository provides a **secure, modular, and production-ready** setup for deploying Elasticsearch on Kubernetes using **Helm** and **Cert-Manager**, fully automated through **GitHub Actions**.
-
----
-
-## Overview
-
-The goal of this project is to deploy a fully functional Elasticsearch cluster including **master**, **data**, and **ingest** nodes in a Kubernetes environment with automated certificate management and CI/CD.
-
-All configurations are designed for **repeatability, scalability, and security**, making this setup suitable for both staging and production workloads.
+This repository provides a **secure**, **modular**, and **production-grade** setup for deploying **Elasticsearch** on **Kubernetes** using **Helm** and **Cert-Manager**, fully automated through **GitHub Actions**.
 
 ---
 
-## Key Features
+## 📘 Overview
 
-- **Helm-based modular deployment** for master, data, and ingest nodes.
-- **TLS encryption** via Cert-Manager (CA and node certificates).
-- **GitHub Actions workflow** for continuous deployment.
-- **Secure kubeconfig handling** through GitHub Secrets.
-- **Idempotent Helm installs** (`helm upgrade --install`).
-- **Node Role Isolation** (`nodeSelector`).
+This setup provisions a complete **Elasticsearch cluster** with dedicated **master**, **data**, and **ingest** nodes, all secured with TLS certificates and managed via CI/CD automation.
+
+It’s designed for:
+
+- **Repeatability** — consistent deployments across environments  
+- **Scalability** — isolated roles and resource control  
+- **Security** — full TLS encryption via Cert-Manager  
 
 ---
 
-## Prerequisites
+## 🚀 Key Features
 
-Before running the workflow, ensure the following:
-- Label your nodes as master, data and ingest
-- A Kubernetes cluster (v1.24 or newer)
-- Helm 3.x
-- Cert-Manager installed on the cluster
-- A GitHub repository with the secret `KUBECONFIG_DATA` defined
+- **Helm-based modular deployment** for master, data, and ingest node sets  
+- **Automatic TLS certificate management** with Cert-Manager (CA + node certs)  
+- **Continuous deployment** using GitHub Actions  
+- **Secure kubeconfig management** via GitHub Secrets  
+- **Idempotent operations** using `helm upgrade --install`  
+- **Node role isolation** using Kubernetes `nodeSelector` labels  
 
-## Actions
-- kubectl label node ip-10-0-1-131.eu-west-1.compute.internal node-role.kubernetes.io/master="" --overwrite=false
-- kubectl label node ip-10-0-2-99.eu-west-1.compute.internal node-role.kubernetes.io/data="" --overwrite=false
-- kubectl label node ip-10-0-3-128.eu-west-1.compute.internal node-role.kubernetes.io/ingest="" --overwrite=false
-- kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.yaml
-- kubectl apply -f namespace/
-- kubectl apply -f cert/
-- helm repo add elastic https://helm.elastic.co
-- helm repo update
-- helm upgrade --install -n elasticsearch es-cluster-master elastic/elasticsearch -f values/master-values.yaml
-- helm upgrade --install -n elasticsearch es-cluster-data elastic/elasticsearch -f values/data-values.yaml
-- helm upgrade --install -n elasticsearch es-cluster-ingest elastic/elasticsearch -f values/ingest-values.yaml
+---
 
-          
+## ⚙️ Prerequisites
+
+Before running the workflow, ensure the following are in place:
+
+- Kubernetes cluster **v1.24+**  
+- **Helm 3.x** installed
+- **Elastic** helm repo added (https://helm.elastic.co) 
+- **Cert-Manager** installed  
+- Labeled Kubernetes nodes (`master`, `data`, `ingest`)  
+- GitHub repository with secret **`KUBECONFIG_DATA`** configured  
+
+---
+
+## 🧠 How to Deploy
+
+Run the following commands to label your cluster nodes appropriately:
+
+```bash
+# 1. Label the Nodes
+kubectl label node ip-10-0-1-131.eu-west-1.compute.internal node-role.kubernetes.io/master="" --overwrite=false
+kubectl label node ip-10-0-2-99.eu-west-1.compute.internal node-role.kubernetes.io/data="" --overwrite=false
+kubectl label node ip-10-0-3-128.eu-west-1.compute.internal node-role.kubernetes.io/ingest="" --overwrite=false
+
+# 1. Install Cert-Manager
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.yaml
+
+# 2. Create namespaces and certificates
+kubectl apply -f namespace/
+kubectl apply -f cert/
+
+# 3. Add and update Helm repo
+helm repo add elastic https://helm.elastic.co
+helm repo update
+
+# 4. Deploy Elasticsearch node roles
+helm upgrade --install -n elasticsearch es-cluster-master elastic/elasticsearch -f values/master-values.yaml
+helm upgrade --install -n elasticsearch es-cluster-data elastic/elasticsearch -f values/data-values.yaml
+helm upgrade --install -n elasticsearch es-cluster-ingest elastic/elasticsearch -f values/ingest-values.yaml
 
