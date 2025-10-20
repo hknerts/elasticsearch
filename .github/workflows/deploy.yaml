@@ -25,9 +25,10 @@ jobs:
         run: |
           helm repo add elastic https://helm.elastic.co
           helm repo update
-          helm upgrade --install -n elasticsearch --create-namespace es-cluster-master elastic/elasticsearch -f master-values.yaml
-          helm upgrade --install -n elasticsearch --create-namespace es-cluster-data elastic/elasticsearch -f data-values.yaml
-          helm upgrade --install -n elasticsearch --create-namespace es-cluster-ingest elastic/elasticsearch -f ingest-values.yaml
+          helm upgrade --install -n elasticsearch --create-namespace es-cluster-master elastic/elasticsearch -f values/master-values.yaml
+          helm upgrade --install -n elasticsearch --create-namespace es-cluster-data elastic/elasticsearch -f values/data-values.yaml
+          helm upgrade --install -n elasticsearch --create-namespace es-cluster-ingest elastic/elasticsearch -f values/ingest-values.yaml
+
 
 
 
