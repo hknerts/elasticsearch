@@ -23,7 +23,7 @@ It’s designed for:
 - **Continuous deployment** using GitHub Actions  
 - **Secure kubeconfig management** via GitHub Secrets  
 - **Idempotent operations** using `helm upgrade --install`  
-- **Node role isolation** using Kubernetes `nodeSelector` labels  
+- **Node Isolation** using Kubernetes `nodeSelector` labels  
 
 ---
 
