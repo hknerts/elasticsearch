@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     container:
-      image: alpine/helm:3
+      image: dtzar/helm-kubectl
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -16,7 +16,7 @@ jobs:
       - name: Set up kubeconfig
         run: |
           mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG_DATA }}" | base64 -d > $HOME/.kube/config
+          echo "${{ secrets.KUBECONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
           
       - name: Apply certs
         run: kubectl apply -f cert/
@@ -26,6 +26,7 @@ jobs:
           helm install -n elasticsearch --create-namespace es-cluster-master elastic/elasticsearch -f master-values.yaml
           helm install -n elasticsearch --create-namespace es-cluster-data elastic/elasticsearch -f data-values.yaml
           helm install -n elasticsearch --create-namespace es-cluster-ingest elastic/elasticsearch -f ingest-values.yaml
+
 
 
 
