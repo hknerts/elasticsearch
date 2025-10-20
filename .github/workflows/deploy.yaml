@@ -15,8 +15,10 @@ jobs:
 
       - name: Set up kubeconfig
         run: |
+          mkdir -p $HOME/.kube
           echo "${{ secrets.KUBECONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
           
       - name: Test kubectl
         run: kubectl get nodes
+
 
