@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     container:
-      image: alpine/helm-kubectl:3.12.0
+      image: alpine/helm:3
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -26,6 +26,7 @@ jobs:
           helm install -n elasticsearch --create-namespace es-cluster-master elastic/elasticsearch -f master-values.yaml
           helm install -n elasticsearch --create-namespace es-cluster-data elastic/elasticsearch -f data-values.yaml
           helm install -n elasticsearch --create-namespace es-cluster-ingest elastic/elasticsearch -f ingest-values.yaml
+
 
 
 
