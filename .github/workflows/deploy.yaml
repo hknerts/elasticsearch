@@ -23,9 +23,10 @@ jobs:
         
       - name: Apply nodes
         run: |
-          helm install -n elasticsearch --create-namespace es-cluster-master elastic/elasticsearch -f master-values.yaml
-          helm install -n elasticsearch --create-namespace es-cluster-data elastic/elasticsearch -f data-values.yaml
-          helm install -n elasticsearch --create-namespace es-cluster-ingest elastic/elasticsearch -f ingest-values.yaml
+          helm upgrade -n elasticsearch --create-namespace es-cluster-master elastic/elasticsearch -f master-values.yaml
+          helm upgrade -n elasticsearch --create-namespace es-cluster-data elastic/elasticsearch -f data-values.yaml
+          helm upgrade -n elasticsearch --create-namespace es-cluster-ingest elastic/elasticsearch -f ingest-values.yaml
+
 
 
 
