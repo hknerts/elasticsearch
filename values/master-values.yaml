@@ -18,7 +18,7 @@ secretMounts:
   - name: elastic-certificates
     secretName: es-certificates
     path: /usr/share/elasticsearch/config/certs
-
+antiAffinity: "soft"
 
 # TLS configuration
 esConfig:
