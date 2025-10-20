@@ -39,6 +39,11 @@ Before running the workflow, ensure the following:
 - kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.yaml
 - kubectl apply -f namespace/
 - kubectl apply -f cert/
+- helm repo add elastic https://helm.elastic.co
+- helm repo update
+- helm upgrade --install -n elasticsearch es-cluster-master elastic/elasticsearch -f values/master-values.yaml
+- helm upgrade --install -n elasticsearch es-cluster-data elastic/elasticsearch -f values/data-values.yaml
+- helm upgrade --install -n elasticsearch es-cluster-ingest elastic/elasticsearch -f values/ingest-values.yaml
 
           
 
