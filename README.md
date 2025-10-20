@@ -32,3 +32,13 @@ Before running the workflow, ensure the following:
 - Cert-Manager installed on the cluster
 - A GitHub repository with the secret `KUBECONFIG_DATA` defined
 
+## Actions
+- kubectl label node ip-10-0-1-131.eu-west-1.compute.internal node-role.kubernetes.io/master="" --overwrite=false
+- kubectl label node ip-10-0-2-99.eu-west-1.compute.internal node-role.kubernetes.io/data="" --overwrite=false
+- kubectl label node ip-10-0-3-128.eu-west-1.compute.internal node-role.kubernetes.io/ingest="" --overwrite=false
+- kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.yaml
+- kubectl apply -f namespace/
+- kubectl apply -f cert/
+
+          
+
