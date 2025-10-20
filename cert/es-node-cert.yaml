@@ -9,8 +9,14 @@ spec:
   renewBefore: 720h
   commonName: elasticsearch-master
   dnsNames:
-    - elasticsearch-master
-    - elasticsearch-master.elastic.svc.cluster.local
+    - elasticsearch-prod-master
+    - elasticsearch-prod-master.elastic.svc.cluster.local
+    - elasticsearch-prod-master-headless
+    - elasticsearch-prod-master-headless.elastic.svc.cluster.local
+    - elasticsearch-prod-data
+    - elasticsearch-prod-data.elastic.svc.cluster.local
+    - elasticsearch-prod-ingest
+    - elasticsearch-prod-ingest.elastic.svc.cluster.local
   issuerRef:
     name: elastic-ca
     kind: ClusterIssuer
