@@ -18,7 +18,14 @@ jobs:
           mkdir -p $HOME/.kube
           echo "${{ secrets.KUBECONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
           
-      - name: Test kubectl
-        run: kubectl get nodes
+      - name: Apply certs
+        run: kubectl apply -f cert/
+        
+      - name: Apply nodes
+        run: |
+          helm install -n elasticsearch --create-namespace es-cluster-master elastic/elasticsearch -f master-values.yaml
+          helm install -n elasticsearch --create-namespace es-cluster-data elastic/elasticsearch -f data-values.yaml
+          helm install -n elasticsearch --create-namespace es-cluster-ingest elastic/elasticsearch -f ingest-values.yaml
+
 
 
