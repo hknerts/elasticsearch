@@ -1,4 +1,4 @@
-# 🧩 Elasticsearch on Kubernetes — Production Helm Deployment
+# 🧩 Elasticsearch - Production Helm Deployment
 
 This repository provides a **secure**, **modular**, and **production-grade** setup for deploying **Elasticsearch** on **Kubernetes**, using the **official Elastic Helm Chart** and **Cert-Manager** for automated TLS management.  
 Everything is fully automated via **GitHub Actions** for consistent, auditable CI/CD operations.
