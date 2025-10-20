@@ -19,15 +19,18 @@ jobs:
           echo "${{ secrets.KUBECONFIG_DATA }}" | base64 -d > $HOME/.kube/config
           
       - name: Apply certs
-        run: kubectl apply -f cert/
+        run: |
+          kubectl create ns elasticsearch
+          kubectl apply -f cert/
         
       - name: Apply nodes
         run: |
           helm repo add elastic https://helm.elastic.co
           helm repo update
-          helm upgrade --install -n elasticsearch --create-namespace es-cluster-master elastic/elasticsearch -f values/master-values.yaml
-          helm upgrade --install -n elasticsearch --create-namespace es-cluster-data elastic/elasticsearch -f values/data-values.yaml
-          helm upgrade --install -n elasticsearch --create-namespace es-cluster-ingest elastic/elasticsearch -f values/ingest-values.yaml
+          helm upgrade --install -n elasticsearch es-cluster-master elastic/elasticsearch -f values/master-values.yaml
+          helm upgrade --install -n elasticsearch es-cluster-data elastic/elasticsearch -f values/data-values.yaml
+          helm upgrade --install -n elasticsearch es-cluster-ingest elastic/elasticsearch -f values/ingest-values.yaml
+
 
 
 
