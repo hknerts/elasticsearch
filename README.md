@@ -1,6 +1,6 @@
 ## Elasticsearch Deployment
 
-This solution provides a secure, production-grade deployment of Elasticsearch on Kubernetes using the official Elastic Helm Chart and automating TLS encryption with Cert-Manager. The configuration establishes a multi-role Elasticsearch cluster—with dedicated, isolated node pools for Master, Data, and Ingest nodes to ensure predictable performance, independent scalability and fault containment. The entire setup is automated via GitHub Actions for consistent CI/CD, prioritizing repeatability, security and modularity. The use of the official Helm chart ensures compatibility and a stable upgrade path while Cert-Manager's automatic certificate rotation eliminates the manual burden of managing TLS for end-to-end encryption.
+This solution provides a secure, production-grade deployment of Elasticsearch on Kubernetes using the official Elastic Helm Chart and automating TLS encryption with CertManager. The configuration establishes a multi role Elasticsearch cluster with dedicated, isolated node pools for Master, Data and Ingest nodes to ensure predictable performance, independent scalability and fault containment. The entire setup is automated via GitHub Actions for consistent CI/CD, prioritizing repeatability, security and modularity.
 
 [Detailed Solution Documentation](https://github.com/hknerts/elasticsearch/blob/main/SOLUTION.md)
 
