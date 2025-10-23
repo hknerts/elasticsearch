@@ -13,6 +13,8 @@ This configuration provisions a **multi-role Elasticsearch cluster** with dedica
 - **Data** nodes (storage and indexing)
 - **Ingest** nodes (pipeline and pre-processing)
 
+Since there were only 3 nodes, i had to set the node roles one by one on the existing nodes. Normally, I would create a separate node group for each and manage their configurations differently.
+
 Each role is **isolated at the node level** for predictable performance, fault containment and resource control.  
 TLS certificates are managed automatically with **Cert-Manager**, ensuring end-to-end encryption inside the cluster.
 
