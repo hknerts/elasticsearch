@@ -1,6 +1,6 @@
 # Elasticsearch - Production Helm Deployment
 
-This repository provides a **secure**, **modular**, and **production-grade** setup for deploying **Elasticsearch** on **Kubernetes**, using the **official Elastic Helm Chart** and **Cert-Manager** for automated TLS management.  
+This repository provides a **secure**, **modular** and **production-grade** setup for deploying **Elasticsearch** on **Kubernetes**, using the **official Elastic Helm Chart** and **Cert-Manager** for automated TLS management.  
 Everything is fully automated via **GitHub Actions** for consistent, auditable CI/CD operations.
 
 ---
@@ -13,7 +13,7 @@ This configuration provisions a **multi-role Elasticsearch cluster** with dedica
 - **Data** nodes (storage and indexing)
 - **Ingest** nodes (pipeline and pre-processing)
 
-Each role is **isolated at the node level** for predictable performance, fault containment, and resource control.  
+Each role is **isolated at the node level** for predictable performance, fault containment and resource control.  
 TLS certificates are managed automatically with **Cert-Manager**, ensuring end-to-end encryption inside the cluster.
 
 The setup prioritizes:
@@ -32,7 +32,7 @@ The **official Elastic Helm chart** is chosen over community alternatives becaus
 
 - **Maintained by Elastic** — guaranteed compatibility with Elasticsearch versions  
 - **Battle-tested** in production environments  
-- **Feature-complete** — includes hooks, init containers, keystore injection, probes, and configuration templating  
+- **Feature-complete** — includes hooks, init containers, keystore injection, probes and configuration templating  
 - **Upgradeable** — Helm releases support seamless rolling updates  
 
 ### ✅ Pros
@@ -67,8 +67,8 @@ The **official Elastic Helm chart** is chosen over community alternatives becaus
 
 ## Why Label Nodes and Isolate Roles?
 
-Elasticsearch is **heavily resource-bound** — CPU, memory, and I/O characteristics vary per role.  
-Mixing roles on the same node often leads to **contention**, **heap pressure**, and **unpredictable latency**.
+Elasticsearch is **heavily resource-bound** — CPU, memory and I/O characteristics vary per role.  
+Mixing roles on the same node often leads to **contention**, **heap pressure** and **unpredictable latency**.
 
 By labeling nodes and targeting deployments with `nodeSelector`, each Helm release runs only where it belongs:
 
