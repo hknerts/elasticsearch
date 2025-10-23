@@ -1,104 +1,15 @@
-# 🧩 Elasticsearch - Production Helm Deployment
+## Elasticsearch Deployment
 
-This repository provides a **secure**, **modular**, and **production-grade** setup for deploying **Elasticsearch** on **Kubernetes**, using the **official Elastic Helm Chart** and **Cert-Manager** for automated TLS management.  
-Everything is fully automated via **GitHub Actions** for consistent, auditable CI/CD operations.
+This solution provides a secure, production-grade deployment of Elasticsearch on Kubernetes using the official Elastic Helm Chart and automating TLS encryption with Cert-Manager. The configuration establishes a multi-role Elasticsearch cluster—with dedicated, isolated node pools for Master, Data, and Ingest nodes to ensure predictable performance, independent scalability and fault containment. The entire setup is automated via GitHub Actions for consistent CI/CD, prioritizing repeatability, security and modularity. The use of the official Helm chart ensures compatibility and a stable upgrade path while Cert-Manager's automatic certificate rotation eliminates the manual burden of managing TLS for end-to-end encryption.
 
----
-
-## 📘 Overview
-
-This configuration provisions a **multi-role Elasticsearch cluster** with dedicated node pools for:
-
-- **Master** nodes (cluster coordination)
-- **Data** nodes (storage and indexing)
-- **Ingest** nodes (pipeline and pre-processing)
-
-Each role is **isolated at the node level** for predictable performance, fault containment, and resource control.  
-TLS certificates are managed automatically with **Cert-Manager**, ensuring end-to-end encryption inside the cluster.
-
-The setup prioritizes:
-
-- 🔁 **Repeatability** — consistent across environments  
-- ⚖️ **Scalability** — node roles scale independently  
-- 🔒 **Security** — TLS
-- 🧩 **Modularity** — separated Helm values per role  
-- ⚙️ **Automation** — GitHub Actions handles deploys
-
----
-
-## 🧠 Why the Official Elastic Helm Chart?
-
-The **official Elastic Helm chart** is chosen over community alternatives because it is:
-
-- **Maintained by Elastic** — guaranteed compatibility with Elasticsearch versions  
-- **Battle-tested** in production environments  
-- **Feature-complete** — includes hooks, init containers, keystore injection, probes, and configuration templating  
-- **Upgradeable** — Helm releases support seamless rolling updates  
-
-### ✅ Pros
-- Officially supported by Elastic (no divergence risk)  
-- Predictable upgrade path  
-- Full configuration coverage (jvm, security, node roles, etc.)  
-- Helm-native lifecycle management (`upgrade`, `rollback`, `template`)  
-
-### ⚠️ Trade-offs
-- Less flexibility compared to writing raw manifests  
-- Larger learning curve for chart internals
-
----
-
-## 🔐 Why Cert-Manager?
-
-**Cert-Manager** automates the issuance and renewal of TLS certificates for Elasticsearch and inter-node communication.
-
-### ✅ Pros
-- **Automatic rotation** of certificates (no downtime or manual renewal)  
-- **Cluster-internal CA** management  
-- **TLS** secure connection
-
-### ⚠️ Trade-offs
-- Adds a dependency (must maintain CRDs and controller)
-- Can be overkill for simple, ephemeral test clusters
-- Slight learning curve in managing issuers and cert resources  
-
-**Bottom line:** In production, TLS automation is non-negotiable, Cert-Manager removes operational burden and eliminates human error.
-
----
-
-## 🧩 Why Label Nodes and Isolate Roles?
-
-Elasticsearch is **heavily resource-bound** — CPU, memory, and I/O characteristics vary per role.  
-Mixing roles on the same node often leads to **contention**, **heap pressure**, and **unpredictable latency**.
-
-By labeling nodes and targeting deployments with `nodeSelector`, each Helm release runs only where it belongs:
-
-| Role | Example Label | Purpose |
-|------|----------------|----------|
-| Master | `node-role.kubernetes.io/master` | Cluster coordination and quorum |
-| Data | `node-role.kubernetes.io/data` | Indexing and storage |
-| Ingest | `node-role.kubernetes.io/ingest` | Data transformation and pipelines |
-
-### ✅ Advantages
-- **Performance isolation** — no shared CPU/memory pressure  
-- **Predictable scaling** — add capacity per role independently  
-- **Fault containment** — node failures don’t impact all cluster functions  
-- **Upgrade safety** — rolling updates affect isolated roles only  
-
-### ⚠️ Trade-offs
-- Requires **node pool management** (more infra coordination)  
-- Slightly more complex Helm orchestration  
-- Overhead in maintaining labels across environments  
-
----
-
-## 🚀 Deployment Workflow
+## Deployment Workflow
 
 ### 1. Label the Nodes
 
 ```bash
-kubectl label node ip-10-0-1-131.eu-west-1.compute.internal node-role.kubernetes.io/master=""
-kubectl label node ip-10-0-2-99.eu-west-1.compute.internal node-role.kubernetes.io/data=""
-kubectl label node ip-10-0-3-128.eu-west-1.compute.internal node-role.kubernetes.io/ingest=""
+kubectl label node <NodeName1> node-role.kubernetes.io/master=""
+kubectl label node <NodeName2> node-role.kubernetes.io/data=""
+kubectl label node <NodeName3> node-role.kubernetes.io/ingest=""
 ```
 
 ### 2. Install Cert-Manager
