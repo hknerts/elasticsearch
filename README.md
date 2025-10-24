@@ -6,14 +6,6 @@ This solution provides a secure, production-grade deployment of Elasticsearch on
 
 ## Deployment Workflow
 
-### 1. Label the Nodes
-
-```bash
-kubectl label node <NodeName1> node-role.kubernetes.io/master=""
-kubectl label node <NodeName2> node-role.kubernetes.io/data=""
-kubectl label node <NodeName3> node-role.kubernetes.io/ingest=""
-```
-
 ### 2. Install Cert-Manager
 
 ```bash
