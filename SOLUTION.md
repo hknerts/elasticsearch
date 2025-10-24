@@ -16,7 +16,7 @@ This configuration provisions a **multi-role Elasticsearch cluster** with dedica
 Each role is **isolated at the node level** for predictable performance, fault containment and resource control.  
 TLS certificates are managed automatically with **Cert-Manager**, ensuring end-to-end encryption inside the cluster.
 
-**Note:** Since there were only 3 nodes, Normally, I would create a separate node group for each and manage their configurations differently.
+**Note:** There were only 3 nodes, I would prefer to create a separate node group for each elasticsearch node role and manage their configurations differently.
 
 The setup prioritizes:
 
