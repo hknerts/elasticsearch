@@ -6,26 +6,26 @@ This solution provides a secure, production-grade deployment of Elasticsearch on
 
 ## Deployment Workflow
 
-### 2. Install Cert-Manager
+### 1. Install Cert-Manager
 
 ```bash
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.yaml
 ```
 
-### 3. Create namespaces and certificates
+### 2. Create namespaces and certificates
 
 ```bash
 kubectl apply -f namespace/
 kubectl apply -f cert/
 ```
 
-### 4. Add and update Helm repo
+### 3. Add and update Helm repo
 
 ```bash
 helm repo add elastic https://helm.elastic.co
 helm repo update
 ```
-### 5. Deploy Elasticsearch node roles
+### 4. Deploy Elasticsearch node roles
 
 ```bash
 helm upgrade --install -n elasticsearch es-cluster-master elastic/elasticsearch -f values/master-values.yaml
