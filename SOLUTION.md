@@ -13,10 +13,10 @@ This configuration provisions a **multi-role Elasticsearch cluster** with dedica
 - **Data** nodes (storage and indexing)
 - **Ingest** nodes (pipeline and pre-processing)
 
-Since there were only 3 nodes, i had to set the node roles one by one on the existing nodes. Normally, I would create a separate node group for each and manage their configurations differently.
-
 Each role is **isolated at the node level** for predictable performance, fault containment and resource control.  
 TLS certificates are managed automatically with **Cert-Manager**, ensuring end-to-end encryption inside the cluster.
+
+**Note:** Since there were only 3 nodes, i had to set the node roles one by one on the existing nodes. Normally, I would create a separate node group for each and manage their configurations differently.
 
 The setup prioritizes:
 
@@ -66,19 +66,6 @@ The **official Elastic Helm chart** is chosen over community alternatives becaus
 **Bottom line:** In production, TLS automation is non-negotiable, Cert-Manager removes operational burden and eliminates human error.
 
 ---
-
-## Why Label Nodes and Isolate Roles?
-
-Elasticsearch is **heavily resource-bound** — CPU, memory and I/O characteristics vary per role.  
-Mixing roles on the same node often leads to **contention**, **heap pressure** and **unpredictable latency**.
-
-By labeling nodes and targeting deployments with `nodeSelector`, each Helm release runs only where it belongs:
-
-| Role | Example Label | Purpose |
-|------|----------------|----------|
-| Master | `node-role.kubernetes.io/master` | Cluster coordination and quorum |
-| Data | `node-role.kubernetes.io/data` | Indexing and storage |
-| Ingest | `node-role.kubernetes.io/ingest` | Data transformation and pipelines |
 
 ### ✅ Advantages
 - **Performance isolation** — no shared CPU/memory pressure  
