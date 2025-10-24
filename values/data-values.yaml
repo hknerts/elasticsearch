@@ -18,13 +18,10 @@ roles:
   - data_cold
   - data_frozen
   
-nodeSelector:
-  node-role.kubernetes.io/data: ""
 secretMounts:
   - name: elastic-certificates
     secretName: es-certificates
     path: /usr/share/elasticsearch/config/certs
-antiAffinity: "soft"
 
 # TLS configuration
 esConfig:

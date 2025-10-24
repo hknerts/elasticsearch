@@ -12,13 +12,11 @@ createCert: false
 protocol: https
 roles:
   - ingest
-nodeSelector:
-  node-role.kubernetes.io/ingest: ""
+
 secretMounts:
   - name: elastic-certificates
     secretName: es-certificates
     path: /usr/share/elasticsearch/config/certs
-antiAffinity: "soft"
 
 # TLS configuration
 esConfig:
